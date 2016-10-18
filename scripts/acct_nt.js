@@ -1,7 +1,3 @@
-//trx{ s:"161002.2014 and 161002.2027"}
-//Offset: 2 Count:9
-//trx{o:3, c:8}
-//Spend: 152 Received: 152 Net:0
 function(context, args)
 {
 	let no_dot = function(n)
@@ -82,12 +78,13 @@ function(context, args)
 			var max = parseInt(no_dot(times[1]));
 			var a0 = Math.max(0,idx(logs, e => t_int(e.time) <= max) - 1); //first in range
 			var a1 = Math.max(a0, idx(logs, e => t_int(e.time) < max)); //first after max
-			var b0 = Math.max(a1, idx(logs, e => t_int(e.time) <= min) - 1); //first before min
+			var b0 = Math.max(a0, idx(logs, e => t_int(e.time) <= min) - 1); //first before min
 			var b1 = Math.max(b0, idx(logs, e => t_int(e.time) < min)); //last in range
 			//result.push("["+a0+","+a1+"] to ["+b0+","+b1+"]");
 			for(var a = a0; a <= a1; a++)
-				for(var b = b0; b <= b1; b++)
+				for(var b = Math.max(a, b0); b <= b1; b++)
 				{
+					//result.push("["+a+"] to ["+b+"]");
 					var val = eval_logs(a, b, noMemo)[i];
 					if(!result.includes(val))
 						result.push(val);
@@ -109,6 +106,7 @@ function(context, args)
 			}
 			return result;
 		}
+		return [0];
 	}
 	return { ok:false, msg:"Usage: trx{ s:\"161002.2014 and 161002.2027\"}" };
 }

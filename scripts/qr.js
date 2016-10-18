@@ -1,6 +1,6 @@
-﻿//EXAMPLE: qr{ s:#s.weyland.memberlogin, a:{ username:"m_clarke_dunk", get:"order_qrs" }}
-function(context, args)
+﻿function(context, args)
 {
+	//EXAMPLE: qr{ s:#s.weyland.memberlogin, a:{ username:"m_clarke_dunk", get:"order_qrs" }}
 	var caller = context.caller;
 	var l = #s.scripts.lib();
 	//call the passed script 's' with the args 'a' then return the result
